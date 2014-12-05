@@ -23,6 +23,7 @@ int main(int argc, char** argv)
             else
             {
                 ROS_INFO("Automatic Control!");
+                /*
                 if(autonomous_control.cmd_linearVelocity>0)
                 {
                     autonomous_control.control_servo.x = 1550;
@@ -35,6 +36,8 @@ int main(int argc, char** argv)
                 {
                     autonomous_control.control_servo.x = 1500;
                 }
+                       */
+                autonomous_control.control_servo.x = 1500 + autonomous_control.cmd_linearVelocity * 20;
 
                 autonomous_control.control_servo.y = autonomous_control.cmd_steeringAngle;
             }
