@@ -8,6 +8,7 @@
   <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser" args="0.28 0.0 0.18 0.0 0.0 0.0 /base_link /laser 40" />
   <node pkg="tf" type="static_transform_publisher" name="scanmatch_to_base" args="-0.28 0.0 -0.18 0.0 0.0 0.0 /scanmatcher_frame /base_link 40" />
 
+
   <!-- hector mapping -->
   <node pkg="hector_mapping" type="hector_mapping" name="hector_mapping" output="screen">
   	<param name="scan_topic" value="scan" />
@@ -33,6 +34,12 @@
 
  	<remap from="map" to="hector_map" />
 	<remap from="initialpose" to="hector_initial"/>
+  </node>
+
+  <node pkg="hector_pose_estimation" type="pose_estimation" name="pose_estimation" output="screen">
+	<remap from="state" to="odom"/>
+	<remap from="raw_imu" to="imu/data"/>
+	
   </node>
 
 </launch>
