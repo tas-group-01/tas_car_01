@@ -37,8 +37,8 @@
   </node>
 
   <node pkg="hector_pose_estimation" type="pose_estimation" name="pose_estimation" output="screen">
-	<remap from="state" to="odom"/>
-	<remap from="raw_imu" to="imu/data"/>
+	<!--remap from="state" to="odom"/>
+	<remap from="raw_imu" to="imu/data"/-->
 	
   </node>
 
