@@ -19,4 +19,7 @@
 <node pkg="simple_navigation_goals" type="set_goallist" respawn="false" name="set_goallist" output="screen">
 </node>
 
+<node pkg="tas_autonomous_control" type="velocity_control" respawn="false" name="velocity_control" output="screen">
+</node>
+
 </launch>

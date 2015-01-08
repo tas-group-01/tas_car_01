@@ -42,7 +42,7 @@ void control::odomCallback(const geometry_msgs::Twist::ConstPtr& msg)
 //Subscribe to the local planner and map the steering angle (and the velocity-but we dont do that here-) to pulse width modulation values.
 void control::cmdCallback(const geometry_msgs::Twist::ConstPtr& msg)
 {
-    cmd_linearVelocity = msg->linear.x * 1.4; //increase velocity
+    cmd_linearVelocity = msg->linear.x * vel_fac; //increase velocity
     cmd_angularVelocity = msg->angular.z;
 
     cmd_steeringAngle = 180/PI*atan(cmd_angularVelocity/cmd_linearVelocity*CAR_LENGTH);
