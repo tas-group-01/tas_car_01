@@ -4,9 +4,11 @@
 #include "ros/ros.h"
 #include "std_msgs/Int16.h"
 #include "std_msgs/Int16MultiArray.h"
+#include "std_msgs/Float32.h"
 #include <math.h>
 #include <geometry_msgs/Vector3.h>
 #include <geometry_msgs/Twist.h>
+
 
 #define PI                     3.14159265
 #define CAR_LENGTH              0.355
@@ -34,6 +36,8 @@ public:
     double odom_angularVelocity;
     double odom_steeringAngle;
 
+    double vel_fac;
+
     geometry_msgs::Vector3 control_servo;
 
 private:
@@ -45,6 +49,8 @@ private:
 
     /* check the wii states and switch the flag for manual mode and autonomous mode */
     void wiiCommunicationCallback(const std_msgs::Int16MultiArray::ConstPtr& msg);
+
+    void vel_factorCallback(const std_msgs::Float32& msg);
 
 };
 

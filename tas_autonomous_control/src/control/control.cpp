@@ -22,7 +22,7 @@ control::control()
 // We can subscribe to the odom here and get some feedback signals so later we can build our controllers
 void control::odomCallback(const geometry_msgs::Twist::ConstPtr& msg)
 {
-    odom_linearVelocity = msg->linear.x;
+    odom_linearVelocity = msg->linear.x * 1.4; //increase velocity
     odom_angularVelocity = msg->angular.z;
 
     odom_steeringAngle = 180/PI*atan(odom_angularVelocity/odom_linearVelocity*CAR_LENGTH);
@@ -42,7 +42,7 @@ void control::odomCallback(const geometry_msgs::Twist::ConstPtr& msg)
 //Subscribe to the local planner and map the steering angle (and the velocity-but we dont do that here-) to pulse width modulation values.
 void control::cmdCallback(const geometry_msgs::Twist::ConstPtr& msg)
 {
-    cmd_linearVelocity = msg->linear.x;
+    cmd_linearVelocity = msg->linear.x * 1.4; //increase velocity
     cmd_angularVelocity = msg->angular.z;
 
     cmd_steeringAngle = 180/PI*atan(cmd_angularVelocity/cmd_linearVelocity*CAR_LENGTH);
@@ -94,3 +94,9 @@ void control::wiiCommunicationCallback(const std_msgs::Int16MultiArray::ConstPtr
 
 //    return current_ServoMsg;
 //}
+
+
+void control::vel_factorCallback(const std_msgs::Float32& msg){
+
+    vel_fac = msg.data;
+}

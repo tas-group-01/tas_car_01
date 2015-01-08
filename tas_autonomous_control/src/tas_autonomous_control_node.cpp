@@ -9,7 +9,7 @@ int main(int argc, char** argv)
 
     while(ros::ok())
     {
-        if(autonomous_control.control_Mode.data==0)
+        if(false)//autonomous_control.control_Mode.data==0//stupid wii mote won't work!
         {
             ROS_INFO("Manually Control!");
         }
