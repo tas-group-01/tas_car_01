@@ -34,6 +34,7 @@
     <param name="port" type="string" value="/dev/hokuyo_back"/> 
     <param name="intensity" type="bool" value="false"/>
     <remap from="scan" to="scan_back" />
+<!-- vlt muss man beide auf denselben port publishen. das wäre nicht so schön -->
   </node>
 
 
