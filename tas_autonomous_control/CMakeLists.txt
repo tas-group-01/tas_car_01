@@ -10,6 +10,7 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   message_filters
   tf
+  move_base_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -107,6 +108,7 @@ include_directories(
 ## Declare a cpp executable
 add_executable(tas_autonomous_control_node src/tas_autonomous_control_node.cpp src/control/control.cpp)
 add_executable(velocity_control src/velocity_control.cpp)
+add_executable(start_velocity src/start_velocity.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
@@ -117,6 +119,9 @@ target_link_libraries(tas_autonomous_control_node
   ${catkin_LIBRARIES}
 )
 target_link_libraries(velocity_control
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(start_velocity
   ${catkin_LIBRARIES}
 )
 
