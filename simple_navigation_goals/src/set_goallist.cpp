@@ -42,8 +42,9 @@ return 0;
 }
 void prepareGoalList(std::vector<move_base_msgs::MoveBaseGoal>& goalList)
 {
+/*
 {
-        /*
+        
         //test
         move_base_msgs::MoveBaseGoal goal;
         goal.target_pose.header.frame_id = "map";
@@ -55,6 +56,7 @@ void prepareGoalList(std::vector<move_base_msgs::MoveBaseGoal>& goalList)
         }*/
 
 //unten links
+{
 move_base_msgs::MoveBaseGoal goal;
 goal.target_pose.header.frame_id = "map";
 goal.target_pose.pose.position.x = 10.4184093475;
@@ -63,17 +65,21 @@ goal.target_pose.pose.orientation.z = -0.7;
 goal.target_pose.pose.orientation.w = 0.71;
 goalList.push_back(goal);
 }
-//unten rechts
+
+
+//unten links bisschen weiter
 {
 move_base_msgs::MoveBaseGoal goal;
 goal.target_pose.header.frame_id = "map";
-goal.target_pose.pose.position.x = 21.12;
-goal.target_pose.pose.position.y = 5.97;
+goal.target_pose.pose.position.x = 15.14;
+goal.target_pose.pose.position.y = 6.29;
 goal.target_pose.pose.orientation.z = 0;
 goal.target_pose.pose.orientation.w = 0.99;
 goalList.push_back(goal);
 }
 
+
+/*
 //unten mitte
 {
 move_base_msgs::MoveBaseGoal goal;
@@ -83,26 +89,27 @@ goal.target_pose.pose.position.y = 6.24;
 goal.target_pose.pose.orientation.z = 0.0;
 goal.target_pose.pose.orientation.w = 1;
 goalList.push_back(goal);
-}
+}*/
 
 
-//oben rechts
+//unten rechts bisschen weiter
 {
 move_base_msgs::MoveBaseGoal goal;
 goal.target_pose.header.frame_id = "map";
-goal.target_pose.pose.position.x = 23.536;
-goal.target_pose.pose.position.y = 17.80;
-goal.target_pose.pose.orientation.z = 0.76;
-goal.target_pose.pose.orientation.w = 0.65;
+goal.target_pose.pose.position.x = 20.74;
+goal.target_pose.pose.position.y = 6.01;
+goal.target_pose.pose.orientation.z = 0.0;
+goal.target_pose.pose.orientation.w = 1.0;
 goalList.push_back(goal);
 }
 
-    //nirvana
+    //Ziel
+    
     {
     move_base_msgs::MoveBaseGoal goal;
     goal.target_pose.header.frame_id = "map";
-    goal.target_pose.pose.position.x = 99;
-    goal.target_pose.pose.position.y = 99;
+    goal.target_pose.pose.position.x = 23.54;
+    goal.target_pose.pose.position.y = 18.16;
     goal.target_pose.pose.orientation.z = 0.0;
     goal.target_pose.pose.orientation.w = 1;
     goalList.push_back(goal);

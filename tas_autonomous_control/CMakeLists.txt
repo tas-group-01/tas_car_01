@@ -107,6 +107,10 @@ include_directories(
 ## Declare a cpp executable
 add_executable(tas_autonomous_control_node src/tas_autonomous_control_node.cpp src/control/control.cpp)
 add_executable(velocity_control src/velocity_control.cpp)
+add_executable(velocity_control2 src/velocity_control2.cpp)
+add_executable(scan_listener src/scan_listener.cpp)
+add_executable(area src/area.cpp)
+add_executable(start_velocity src/start_velocity.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
@@ -119,6 +123,19 @@ target_link_libraries(tas_autonomous_control_node
 target_link_libraries(velocity_control
   ${catkin_LIBRARIES}
 )
+target_link_libraries(velocity_control2
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(scan_listener
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(area
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(start_velocity
+${catkin_LIBRARIES}
+)
+
 
 #############
 ## Install ##
@@ -137,7 +154,7 @@ target_link_libraries(velocity_control
 ## Mark executables and/or libraries for installation
 # install(TARGETS tas_autonomous_control tas_autonomous_control_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+#   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}https://www.google.de/?gws_rd=ssl
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 # )
 
