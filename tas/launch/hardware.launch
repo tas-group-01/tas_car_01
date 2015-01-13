@@ -23,6 +23,7 @@
     <!-- Set the port to connect to here -->
     <param name="port" type="string" value="/dev/hokuyo_front"/> 
     <param name="intensity" type="bool" value="false"/>
+    <param name="frame id"  value="laser"/>
     <remap from="scan" to="scan" />
   </node>
 
@@ -33,10 +34,16 @@
     <!-- Set the port to connect to here -->
     <param name="port" type="string" value="/dev/hokuyo_back"/> 
     <param name="intensity" type="bool" value="false"/>
+    <param name="frame id"  value="back_laser"/>
     <remap from="scan" to="scan_back" />
-<!-- vlt muss man beide auf denselben port publishen. das wäre nicht so schön -->
   </node>
 
+        <node pkg="ira_laser_tools" name="laserscan_multi_merger" type="laserscan_multi_merger" output="screen">
+		<param name="destination_frame" value="/laser" />
+		<param name="cloud_destination_topic" value="/merged_cloud"/>
+		<param name="scan_destination_topic" value="/scan_multi"/>
+                <param name="laserscan_topics" value ="scan_front scan_back" /> <!-- LIST OF THE LASER SCAN TOPICS TO SUBSCRIBE -->
+	</node>
 
  <!-- Run xsens driver -->
   <arg name="frame_id" default="/imu"/>
