@@ -9,7 +9,7 @@ int main(int argc, char** argv)
 
     while(ros::ok())
     {
-        if(autonomous_control.control_Mode.data==0)
+        if(false)//autonomous_control.control_Mode.data==0//stupid wii mote won't work!
         {
             ROS_INFO("Manually Control!");
         }
@@ -23,7 +23,7 @@ int main(int argc, char** argv)
             else
             {
                 ROS_INFO("Automatic Control!");
-                /*
+                
                 if(autonomous_control.cmd_linearVelocity>0)
                 {
                     autonomous_control.control_servo.x = 1550;
@@ -36,12 +36,11 @@ int main(int argc, char** argv)
                 {
                     autonomous_control.control_servo.x = 1500;
                 }
-                       */
-                autonomous_control.control_servo.x = 1500 + autonomous_control.cmd_linearVelocity * 20;
+                autonomous_control.control_servo.x = 1500 + autonomous_control.cmd_linearVelocity * 400;
+            ROS_INFO("linvel %f gibt servo x %f \n",autonomous_control.cmd_linearVelocity, autonomous_control.control_servo.x);
 
                 autonomous_control.control_servo.y = autonomous_control.cmd_steeringAngle;
             }
-
             autonomous_control.control_servo_pub_.publish(autonomous_control.control_servo);
 
         }

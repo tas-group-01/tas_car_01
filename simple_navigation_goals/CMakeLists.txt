@@ -111,8 +111,10 @@ add_executable(simple_navigation_goals_node src/main.cpp)
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(simple_navigation_goals_node
-  ${catkin_LIBRARIES}
-)
+  ${catkin_LIBRARIES})
+
+add_executable(set_goallist src/set_goallist.cpp)
+target_link_libraries(set_goallist ${catkin_LIBRARIES})
 
 #############
 ## Install ##

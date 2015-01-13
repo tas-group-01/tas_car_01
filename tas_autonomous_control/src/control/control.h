@@ -3,10 +3,17 @@
 
 #include "ros/ros.h"
 #include "std_msgs/Int16.h"
+#include "std_msgs/Float64.h"
+
 #include "std_msgs/Int16MultiArray.h"
+
 #include <math.h>
 #include <geometry_msgs/Vector3.h>
 #include <geometry_msgs/Twist.h>
+
+#include <geometry_msgs/PoseWithCovarianceStamped.h>
+#include <sensor_msgs/LaserScan.h>
+#include <std_msgs/Int8.h>
 
 #define PI                     3.14159265
 #define CAR_LENGTH              0.355
@@ -22,6 +29,11 @@ public:
     ros::Subscriber cmd_sub_;
     ros::Subscriber odom_sub_;
     ros::Subscriber wii_communication_sub;
+    ros::Subscriber VelFac_sub;
+    ros::Subscriber Area_sub;
+    ros::Subscriber Scan_sub;
+   /* ros::Subscriber sub; nicht hier deklarieren sondern in main*/
+  /*  ros::Subscriber pos_sub; */
 
     std_msgs::Int16 control_Brake; /* flag for brake */
     std_msgs::Int16 control_Mode; /* flag for car mode: manual or autonomous */
@@ -34,7 +46,23 @@ public:
     double odom_angularVelocity;
     double odom_steeringAngle;
 
+    double vel_fac;
+    int area_;
+    //geometry_msgs::PoseWithCovariance ort_y;
+ 
+    double wert_winkel_1;
+    double wert_winkel_2;
+
+     float ort_y;
+    float ort_x;
+   int bereich;
+      // ohne Initialisierung, beim launchen drauf achten, dass 
+                   // die Position im autonomen Bereich, da sonst gleich beim Start Wert gespeichert bleibt
+    
+
     geometry_msgs::Vector3 control_servo;
+
+ 
 
 private:
     /* subscribe the cmd message from move_base */
@@ -45,6 +73,16 @@ private:
 
     /* check the wii states and switch the flag for manual mode and autonomous mode */
     void wiiCommunicationCallback(const std_msgs::Int16MultiArray::ConstPtr& msg);
+
+    void vel_factorCallback(const std_msgs::Float64ConstPtr& msg);
+
+    void area_Callback(const std_msgs::Int8ConstPtr& msg);    
+
+    //void position_Callback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& ort_);
+   /*listen to pose for acceleration*/
+   
+    void scan_Callback(const sensor_msgs::LaserScan::ConstPtr& scan_);
+   /*listen to topic /scan */
 
 };
 

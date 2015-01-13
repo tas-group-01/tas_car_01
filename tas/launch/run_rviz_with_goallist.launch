@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<launch>
+  <master auto="start"/>
+  <param name="/use_sim_time" value="false"/>
+
+  <!-- Set up hardware -->
+  <include file="$(find tas)/launch/hardware.launch" />
+
+  <!-- Set up fake odomotry -->
+  <include file="$(find tas)/launch/odom.launch" />
+
+  <!-- Set up move base package-->
+  <include file="$(find tas)/launch/move_base.launch" />
+
+  <!-- Run rviz -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find tas)/launch/config/rviz/tas_rviz.rviz" />
+
+<node pkg="simple_navigation_goals" type="set_goallist" respawn="false" name="set_goallist" output="screen">
+</node>
+
+<node pkg="tas_autonomous_control" type="velocity_control2" respawn="false" name="velocity_control2" output="screen">
+</node>
+
+<node pkg="tas_autonomous_control" type="area" respawn="false" name="area" output="screen">
+</node>
+
+
+</launch>
