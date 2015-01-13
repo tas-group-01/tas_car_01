@@ -4,7 +4,7 @@
 #include "ros/ros.h"
 #include "std_msgs/Int16.h"
 #include "std_msgs/Int16MultiArray.h"
-#include "std_msgs/Float32.h"
+#include "std_msgs/Float64.h"
 #include <math.h>
 #include <geometry_msgs/Vector3.h>
 #include <geometry_msgs/Twist.h>
@@ -24,6 +24,7 @@ public:
     ros::Subscriber cmd_sub_;
     ros::Subscriber odom_sub_;
     ros::Subscriber wii_communication_sub;
+    ros::Subscriber VelFac_sub;
 
     std_msgs::Int16 control_Brake; /* flag for brake */
     std_msgs::Int16 control_Mode; /* flag for car mode: manual or autonomous */
@@ -50,7 +51,7 @@ private:
     /* check the wii states and switch the flag for manual mode and autonomous mode */
     void wiiCommunicationCallback(const std_msgs::Int16MultiArray::ConstPtr& msg);
 
-    void vel_factorCallback(const std_msgs::Float32& msg);
+    void vel_factorCallback(const std_msgs::Float64ConstPtr& msg);
 
 };
 

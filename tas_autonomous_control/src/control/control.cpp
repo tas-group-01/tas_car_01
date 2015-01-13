@@ -1,4 +1,5 @@
 #include "control.h"
+#include <iostream>
 
 control::control()
 {
@@ -9,6 +10,8 @@ control::control()
     odom_sub_ = nh_.subscribe<geometry_msgs::Twist>("odom_vel",1000,&control::odomCallback,this);
 
     wii_communication_sub = nh_.subscribe<std_msgs::Int16MultiArray>("wii_communication",1000,&control::wiiCommunicationCallback,this);
+
+VelFac_sub = nh_.subscribe<std_msgs::Float64>("vel_factor",1000,&control::vel_factorCallback,this);
 
 //    Fp = 10;// need to test! defult:125
 
@@ -22,7 +25,7 @@ control::control()
 // We can subscribe to the odom here and get some feedback signals so later we can build our controllers
 void control::odomCallback(const geometry_msgs::Twist::ConstPtr& msg)
 {
-    odom_linearVelocity = msg->linear.x * 1.4; //increase velocity
+    odom_linearVelocity = msg->linear.x * vel_fac; //increase velocity
     odom_angularVelocity = msg->angular.z;
 
     odom_steeringAngle = 180/PI*atan(odom_angularVelocity/odom_linearVelocity*CAR_LENGTH);
@@ -96,7 +99,7 @@ void control::wiiCommunicationCallback(const std_msgs::Int16MultiArray::ConstPtr
 //}
 
 
-void control::vel_factorCallback(const std_msgs::Float32& msg){
+void control::vel_factorCallback(const std_msgs::Float64ConstPtr& msg){
 
-    vel_fac = msg.data;
+    vel_fac = msg->data;
 }
