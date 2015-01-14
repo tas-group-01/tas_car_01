@@ -132,8 +132,9 @@ target_link_libraries(scan_listener
 target_link_libraries(area
   ${catkin_LIBRARIES}
 )
+
 target_link_libraries(start_velocity
-${catkin_LIBRARIES}
+  ${catkin_LIBRARIES}
 )
 
 
