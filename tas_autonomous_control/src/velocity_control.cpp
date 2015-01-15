@@ -1,22 +1,4 @@
- Skip to content
-This repository
 
-    Explore
-    Features
-    Enterprise
-    Blog
-
-    0
-    1
-
-tas-group-01/tas_car_01
-
-tas_car_01/tas_autonomous_control/src/velocity_control.cpp
-Check your git settings! invalid-email-address 2 hours ago
-kleine änderungen
-
-1 contributor
-121 lines (94 sloc) 4.204 kb
 #include <ros/ros.h>
 #include "std_msgs/Int16.h"
 #include "std_msgs/Float64.h"
@@ -33,6 +15,7 @@ kleine änderungen
 geometry_msgs::Point slamPoint;
 geometry_msgs::Point last_goalPoint;
 geometry_msgs::Point goalPoint;
+
 void setslam(const move_base_msgs::MoveBaseActionFeedbackConstPtr& smsg){
 slamPoint = smsg->feedback.base_position.pose.position;
 }
@@ -111,18 +94,4 @@ loop_rate.sleep();
 }
 return 0;
 }
-
-    Status
-    API
-    Training
-    Shop
-    Blog
-    About
-
-    © 2015 GitHub, Inc.
-    Terms
-    Privacy
-    Security
-    Contact
-
 
