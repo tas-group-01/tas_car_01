@@ -10,6 +10,7 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   message_filters
   tf
+  move_base_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -110,6 +111,7 @@ add_executable(velocity_control src/velocity_control.cpp)
 add_executable(velocity_control2 src/velocity_control2.cpp)
 add_executable(scan_listener src/scan_listener.cpp)
 add_executable(area src/area.cpp)
+add_executable(start_velocity src/start_velocity.cpp)
 
 
 ## Add cmake target dependencies of the executable/library
@@ -123,7 +125,6 @@ target_link_libraries(tas_autonomous_control_node
 target_link_libraries(velocity_control
   ${catkin_LIBRARIES}
 )
-
 target_link_libraries(velocity_control2
   ${catkin_LIBRARIES}
 )
@@ -131,6 +132,9 @@ target_link_libraries(scan_listener
   ${catkin_LIBRARIES}
 )
 target_link_libraries(area
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(start_velocity
   ${catkin_LIBRARIES}
 )
 
