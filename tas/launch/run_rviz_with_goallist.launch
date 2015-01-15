@@ -25,5 +25,8 @@
 <node pkg="tas_autonomous_control" type="area" respawn="false" name="area" output="screen">
 </node>
 
+<node pkg="tas_autonomous_control" type="start_velocity" respawn="false" name="start_velocity" output="screen">
+</node>
+
 
 </launch>
