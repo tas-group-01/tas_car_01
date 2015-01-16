@@ -26,16 +26,19 @@
  int cone_on_right = 0;
  int cone_on_left = 0;
  std_msgs::Int8MultiArray array_;
+std_msgs::Float64 lenkung;
 
  int mode = 0;
 double last_range = 0;
+double  steer = 0, steer_factor = 1;
  
 void laser_Callback(const sensor_msgs::LaserScan::ConstPtr& scanner_) {
 
    
    ros::Publisher cone_pub;
    ros::NodeHandle nh;
-   cone_pub=nh.advertise<std_msgs::Int8MultiArray>("cone_cone",1000);
+  
+   
    ros::Rate loop_rate(50);
 
 
@@ -46,7 +49,7 @@ void laser_Callback(const sensor_msgs::LaserScan::ConstPtr& scanner_) {
   }
 
   double jump_range = 999;
-  double angle = 0, steer = 0, steer_factor = 1;
+  double angle = 0;
 
   int range_id = 0; 
 
@@ -86,7 +89,7 @@ void laser_Callback(const sensor_msgs::LaserScan::ConstPtr& scanner_) {
   if(angle > 175){
 	mode = 1;
   }
-  if(angle > 175){
+  if(angle < 5){
 	mode = 0;
   }
 
@@ -94,10 +97,14 @@ void laser_Callback(const sensor_msgs::LaserScan::ConstPtr& scanner_) {
   if(mode){
 	steer = angle / 180 * steer_factor;
   }else{
-	steer = (180 - angle) / 180 * steer_factor;
+	steer = (angle - 180) / 180 * steer_factor;
   }
   
-    
+    lenkung.data = steer; // -1 < steer < 1 / von rechts nach links
+
+   
+
+//std::cout << "Lenkung: "<< lenkung << '\n'; 
   
 /*
    summe_cone_rechts = 0;
@@ -161,22 +168,22 @@ std::cout <<"Links: " << smallest_links << "\n";
 */
 
 
-   array_.data.clear();
-   array_.data.push_back(first_cone);
-   array_.data.push_back(cone_on_right);
-   array_.data.push_back(cone_on_left);
+   //array_.data.clear();
+   //array_.data.push_back(first_cone);
+   //array_.data.push_back(cone_on_right);
+   //array_.data.push_back(cone_on_left);
    
-/*
 
-    int co = 0;
+
+  /*  int co = 0;
      while (ros::ok())
 {    
-     cone_pub.publish(array_);
+   
      ros::spinOnce();
      loop_rate.sleep();
      ++co;
-}
-*/
+}*/
+
 }
 
 
@@ -184,16 +191,22 @@ std::cout <<"Links: " << smallest_links << "\n";
 int main(int argc, char **argv){
 
     ros::init(argc,argv,"cone");
-    ros::Publisher cone_pub;
-    ros::NodeHandle nh;
+ros::NodeHandle nh;
+   
+    
+
+    ros::Subscriber cone_sub = nh.subscribe("/scan",10000,laser_Callback);
+ ros::Publisher cone_pub=nh.advertise<std_msgs::Float64>("cone_cone",1000);
     
 ros::Rate loop_rate(50);
-    ros::Subscriber cone_sub = nh.subscribe("/scan",10000,laser_Callback);
+while(ros::ok()){ 
+ cone_pub.publish(lenkung);
+
 
    // ros::sleep();
     ros::spinOnce();
     loop_rate.sleep();
-    ros::spin();
-
+   }
+ //ros::spin();
     return 0;
 }
