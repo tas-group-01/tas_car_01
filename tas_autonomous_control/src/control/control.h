@@ -32,6 +32,7 @@ public:
     ros::Subscriber VelFac_sub;
     ros::Subscriber Area_sub;
     ros::Subscriber Scan_sub;
+    ros::Subscriber Cone_sub;
    /* ros::Subscriber sub; nicht hier deklarieren sondern in main*/
   /*  ros::Subscriber pos_sub; */
 
@@ -48,6 +49,7 @@ public:
 
     double vel_fac;
     int area_;
+    double lenk;
     //geometry_msgs::PoseWithCovariance ort_y;
  
     double wert_winkel_1;
@@ -83,6 +85,8 @@ private:
    
     void scan_Callback(const sensor_msgs::LaserScan::ConstPtr& scan_);
    /*listen to topic /scan */
+
+   void steer_Callback(const std_msgs::Float64ConstPtr& msg);
 
 };
 

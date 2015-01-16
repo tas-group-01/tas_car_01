@@ -18,6 +18,10 @@ control::control()
  
     VelFac_sub = nh_.subscribe<std_msgs::Float64>("vel_factor",1000,&control::vel_factorCallback,this);
 
+    Cone_sub = nh_.subscribe<std_msgs::Float64>("vel_factor",1000,&control::vel_factorCallback,this);
+
+   
+
     //Bereich_sub = nh_.subscribe<
   
 
@@ -56,16 +60,18 @@ void control::odomCallback(const geometry_msgs::Twist::ConstPtr& msg)
 
 //bereich = 1; 
 
-
+area_ = 1;
 
 switch (area_) {
 
     case 1 :  //Bereich an der Startposition -> selbständige Beschleunigung
-    {odom_linearVelocity = 0.13;//vel_fac; //increase velocity
+    {odom_linearVelocity = 0.12;//vel_fac; //increase velocity
     
     odom_angularVelocity = msg->angular.z;
 
-    odom_steeringAngle = 180/PI*atan(odom_angularVelocity/odom_linearVelocity*CAR_LENGTH); //könnte man evtl auch festsetzen
+   odom_steeringAngle = 1500 + 500*lenk;
+
+    /*odom_steeringAngle = 180/PI*atan(odom_angularVelocity/odom_linearVelocity*CAR_LENGTH); //könnte man evtl auch festsetzen
 
     odom_steeringAngle = 1500 + 500/30*odom_steeringAngle;
 
@@ -76,7 +82,7 @@ switch (area_) {
     else if(odom_steeringAngle < 1000)
     {
         odom_steeringAngle = 1000;
-    }}
+    }*/}
     break;
 
     case 2:   // if the robot passes this area succefully then leave the parameters alone
@@ -165,21 +171,21 @@ void control::cmdCallback(const geometry_msgs::Twist::ConstPtr& msg)
 
 
 
-
+area_=1;
 
 //bereich = 1;  
 
 switch (area_) {
     
      case 1:   // area around the starting position -> autonomous acceleration
-    {cmd_linearVelocity = 0.13;//vel_fac; //increase velocity
+    {cmd_linearVelocity = 0.12;//vel_fac; //increase velocity
      
     cmd_angularVelocity = msg->angular.z;
 
    // std::cout << "vel_fac" << vel_fac << "\n";
 
-
-    cmd_steeringAngle = 180/PI*atan(cmd_angularVelocity/cmd_linearVelocity*CAR_LENGTH);
+   cmd_steeringAngle = 1500 + 500*lenk;
+    /*cmd_steeringAngle = 180/PI*atan(cmd_angularVelocity/cmd_linearVelocity*CAR_LENGTH);
 
     cmd_steeringAngle = 1500 + 500/30*cmd_steeringAngle;
 
@@ -190,7 +196,7 @@ switch (area_) {
     else if(cmd_steeringAngle < 1000)
     {
         cmd_steeringAngle = 1000;
-    }}
+    }*/}
     break;
 
     case 2: // if the robot passes succesfully leave this parameters alone
@@ -334,6 +340,10 @@ void control::vel_factorCallback(const std_msgs::Float64ConstPtr& msg){
 
 void control::area_Callback(const std_msgs::Int8ConstPtr& msg){
     area_ = msg->data;
+}
+
+ void control::steer_Callback(const std_msgs::Float64ConstPtr& msg){
+  lenk = msg->data;
 }
 
 
