@@ -117,6 +117,8 @@ add_executable(area src/area.cpp)
 add_executable(obstacle src/obstacle.cpp)
 add_executable(obstacle_right src/obstacle_right.cpp)
 add_executable(obstacle_left src/obstacle_left.cpp)
+add_executable(cone src/cone.cpp)
+add_executable(anger src/anger.cpp)
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
 # add_dependencies(tas_autonomous_control_node tas_autonomous_control_generate_messages_cpp)
@@ -138,6 +140,7 @@ target_link_libraries(area
   ${catkin_LIBRARIES}
 )
 
+
 target_link_libraries(obstacle
   ${catkin_LIBRARIES}
 )
@@ -150,6 +153,13 @@ target_link_libraries(obstacle_left
   ${catkin_LIBRARIES}
 )
 
+target_link_libraries(cone
+  ${catkin_LIBRARIES}
+)
+
+target_link_libraries(anger
+  ${catkin_LIBRARIES}
+)
 #target_link_libraries(get_laserscan_data process_laserscan_data ${catkin_LIBRARIES})
 
 
