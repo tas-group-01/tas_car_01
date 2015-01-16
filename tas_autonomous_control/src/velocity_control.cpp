@@ -99,7 +99,7 @@ int main(int argc, char **argv){
                               + pow((last_goalPoint.y - slamPoint.y),2));
         }
 
-       std::cout << "distance_to_current: " << distance_to_current << "distance_to_last" << distance_to_last << "\n";
+     //  std::cout << "distance_to_current: " << distance_to_current << "distance_to_last" << distance_to_last << "\n";
 
         //since we cannot go into the corners, we check like this
         answer.data = factor(distance_to_current)? (distance_to_current < distance_to_last || last_goalPoint.x ==0) : factor(distance_to_last);

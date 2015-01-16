@@ -14,11 +14,11 @@ control::control()
 
     wii_communication_sub = nh_.subscribe<std_msgs::Int16MultiArray>("wii_communication",1000,&control::wiiCommunicationCallback,this);
 
-    Area_sub = nh_.subscribe<std_msgs::Int8>("area_area",1000,&control::area_Callback,this);
+    //Area_sub = nh_.subscribe<std_msgs::Int8>("area_area",1000,&control::area_Callback,this);
  
     VelFac_sub = nh_.subscribe<std_msgs::Float64>("vel_factor",1000,&control::vel_factorCallback,this);
 
-    Cone_sub = nh_.subscribe<std_msgs::Float64>("vel_factor",1000,&control::vel_factorCallback,this);
+    Cone_sub = nh_.subscribe<std_msgs::Float64>("cone_cone",1000,&control::steer_Callback,this);
 
    
 
@@ -43,8 +43,14 @@ control::control()
 
 void control::odomCallback(const geometry_msgs::Twist::ConstPtr& msg)
 {
-    std::cout<<"vel_fac: "<<  vel_fac << "\n";
-    std::cout<<"Ort_y: "<<  ort_y << "\n";
+
+odom_linearVelocity = 0.12;//lenk;//0.12;//vel_fac; //increase velocity
+    
+    //odom_angularVelocity = msg->angular.z;
+
+   odom_steeringAngle = 1500 + 500*lenk;
+    //std::cout<<"vel_fac: "<<  vel_fac << "\n";
+    //std::cout<<"Ort_y: "<<  ort_y << "\n";
 
  /* if ((ort_y > 17 ) && (ort_x < 7)){
      bereich = 1;
@@ -55,7 +61,7 @@ void control::odomCallback(const geometry_msgs::Twist::ConstPtr& msg)
    else if((ort_y < 5) && (ort_y > 17)){
      bereich = 3;
      }
-    else bereich = 0; */
+    else bereich = 0; *//*
    
 
 //bereich = 1; 
@@ -65,7 +71,7 @@ area_ = 1;
 switch (area_) {
 
     case 1 :  //Bereich an der Startposition -> selbständige Beschleunigung
-    {odom_linearVelocity = 0.12;//vel_fac; //increase velocity
+    {odom_linearVelocity = 0.12;//lenk;//0.12;//vel_fac; //increase velocity
     
     odom_angularVelocity = msg->angular.z;
 
@@ -82,7 +88,7 @@ switch (area_) {
     else if(odom_steeringAngle < 1000)
     {
         odom_steeringAngle = 1000;
-    }*/}
+    }*//*}
     break;
 
     case 2:   // if the robot passes this area succefully then leave the parameters alone
@@ -162,15 +168,15 @@ switch (area_) {
     break;
 
     }
-    
+ */   
 }
 
 //Subscribe to the local planner and map the steering angle (and the velocity-but we dont do that here-) to pulse width modulation values.
 void control::cmdCallback(const geometry_msgs::Twist::ConstPtr& msg)
 {  
-
-
-
+cmd_linearVelocity =0.12; //lenk;
+cmd_steeringAngle = 1500 + 500*lenk;
+/*
 area_=1;
 
 //bereich = 1;  
@@ -178,7 +184,7 @@ area_=1;
 switch (area_) {
     
      case 1:   // area around the starting position -> autonomous acceleration
-    {cmd_linearVelocity = 0.12;//vel_fac; //increase velocity
+    {cmd_linearVelocity =0.12; //lenk; //0.12;//vel_fac; //increase velocity
      
     cmd_angularVelocity = msg->angular.z;
 
@@ -196,7 +202,7 @@ switch (area_) {
     else if(cmd_steeringAngle < 1000)
     {
         cmd_steeringAngle = 1000;
-    }*/}
+    }*//*}
     break;
 
     case 2: // if the robot passes succesfully leave this parameters alone
@@ -290,7 +296,7 @@ switch (area_) {
 
    }
 
-
+*/
  
 
 }
@@ -344,6 +350,12 @@ void control::area_Callback(const std_msgs::Int8ConstPtr& msg){
 
  void control::steer_Callback(const std_msgs::Float64ConstPtr& msg){
   lenk = msg->data;
+std::cout << "Schinken!!\n" << lenk;
+cmd_linearVelocity =0.12; //lenk;
+cmd_steeringAngle = 1500 + 500*lenk;
+
+odom_linearVelocity =0.12; //lenk;
+odom_steeringAngle = 1500 + 500*lenk; 
 }
 
 
