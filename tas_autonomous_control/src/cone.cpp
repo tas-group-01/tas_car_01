@@ -30,7 +30,7 @@ std_msgs::Float64 lenkung;
 
  int mode = 0;
 double last_range = 0;
-double  steer = 0, steer_factor = 1;
+double  steer = 0, steer_factor = 1.2;
  
 void laser_Callback(const sensor_msgs::LaserScan::ConstPtr& scanner_) {
 
