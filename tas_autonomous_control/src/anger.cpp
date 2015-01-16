@@ -23,7 +23,7 @@ angle_pub=nh.advertise<std_msgs::Float64>("angle_angle",100);
 ros::Rate loop_rate(50);
 //tf:: double angle = winkel_->....
 tf::Quaternion q(scanner_ -> pose.pose.position.x, scanner_ -> pose.pose.position.y, scanner_ -> pose.pose.orientation.z, scanner_ -> pose.pose.orientation.w);
-theta.data= q.getAngle();
+theta.data= q.getAngle()*(180/3.14);
 /* if (theta > 45) {
 deflection_left = 1;
 }

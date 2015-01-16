@@ -31,10 +31,16 @@ ros::Rate loop_rate(50);
 summe_cone_rechts = 0;
 summe_cone_links = 0;
 summe_cone_vorne = 0;
-for (unsigned int i=10; i<30; ++i){
-summe_cone_rechts = summe_cone_rechts + scanner_ -> ranges[i];
-summe_cone_links = summe_cone_links + scanner_ -> ranges[i+680]; //scan from 690 to 710
-summe_cone_vorne = summe_cone_vorne + scanner_ -> ranges[i+340];
+for (unsigned int i=309; i<409; ++i){
+summe_cone_rechts = summe_cone_rechts + scanner_ -> ranges[i-308];
+summe_cone_links = summe_cone_links + scanner_ -> ranges[i+309]; //scan from 690 to 710
+summe_cone_vorne = summe_cone_vorne + scanner_ -> ranges[i];
+}
+double smallest = 9999;
+for (int j = 310; j < 408; ++j) {
+if (scanner_ -> ranges[j] < smallest) {
+smallest = scanner_ -> ranges[j];
+}
 }
 //1.)
 if (summe_cone_vorne < 50){
@@ -50,7 +56,7 @@ cone_on_left = 1;
 cone_on_right = 0;
 }
 //3.)
-std::cout << "Links: " << summe_cone_links <<' '<< "Vorne: " << summe_cone_vorne << ' ' << "Rechts: " << summe_cone_rechts << '\n';
+std::cout << "Links: " << summe_cone_links <<' '<< "Vorne: " << smallest << ' ' << "Rechts: " << summe_cone_rechts << '\n';
 std::cout <<"first_cone: "<< first_cone <<"\n";
 std::cout << "cone_on_left: "<< cone_on_left <<"\n";
 std::cout << "cone_on_right: "<< cone_on_right <<"\n";
