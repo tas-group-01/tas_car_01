@@ -1,3 +1,5 @@
+//Funtkion zum Testen und Visualisieren der rohen Laserscannerdaten
+
 #include <ros/ros.h>
 #include "std_msgs/Int16.h"
 #include "std_msgs/Float64.h"

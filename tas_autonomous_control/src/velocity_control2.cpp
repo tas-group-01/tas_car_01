@@ -1,7 +1,7 @@
 
 #include <geometry_msgs/PoseStamped.h>
 #include <geometry_msgs/PoseWithCovarianceStamped.h>
-//#include "control/control.h"
+
 #include <ros/ros.h>
 
 #include "std_msgs/Int16.h"
@@ -27,10 +27,10 @@ double factor;
 
 void Callback2(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& pos_) {
 
-   ros::Rate loop_rate(50.0);   //Braucht man wahrscheinlich auch nicht
+   ros::Rate loop_rate(50.0);   
    ros::NodeHandle nh;
 
-    float x_Pos = pos_ -> pose.pose.position.x;   //Braucht man nicht
+    float x_Pos = pos_ -> pose.pose.position.x;   
     float y_Pos = pos_ -> pose.pose.position.y;
     float z_Pos = pos_ -> pose.pose.position.z;
    
@@ -42,9 +42,9 @@ void Callback2(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& pos_) {
    
    int count = 0;
      while (ros::ok()){
-  //Parameter setzen und publishen 
+  //Parameter setzen und publishen, vel_fac in Abhängigkeit des Ortes setzen
   
-    std::cout<<"POSITION X: " << pos_ -> pose.pose.position.x << "\n" << "POSITION Y: " << pos_ -> pose.pose.position.y  << "\n";
+    std::cout<<"POSITION X: " << pos_ -> pose.pose.position.x << "\n" << "POSITION Y: " << pos_ ->     pose.pose.position.y  << "\n";
     if ((pos_ -> pose.pose.position.y < 15.0) && (pos_ -> pose.pose.position.y > 9.5))  {
         factor = 1.8;
          }

@@ -121,7 +121,7 @@ goalList.push_back(goal);
     move_base_msgs::MoveBaseGoal goal;
     goal.target_pose.header.frame_id = "map";
     goal.target_pose.pose.position.x = 10.54;
-    goal.target_pose.pose.position.y = 18.16;
+    goal.target_pose.pose.position.y = 19.16;
     goal.target_pose.pose.orientation.z = 0.0;
     goal.target_pose.pose.orientation.w = 1;
     goalList.push_back(goal);
